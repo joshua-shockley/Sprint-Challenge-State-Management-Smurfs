@@ -1,22 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-// import {addSmurf} from '../action/index.js';
- function SmurfForm (props){
+import {addSmurf} from '../action/index.js';
+
+
+
+ const SmurfForm = (props) => {
 console.log(props);
-
-// const addSmurf = (addthem) => dispatch
-
-const [newSmurf, setNewSmurf]=useState({name: '', age: '', height: '', id: ''});
+const [newSmurf, setNewSmurf] = useState({name: '', age: '', height: ''});
 
 const handleChange = event=> {
     setNewSmurf({...newSmurf, [event.target.name]: event.target.value});
 }
 
-    const handleSubmit = e => {
+ const handleSubmit = e => {
         e.preventDefault();
         props.addSmurf(newSmurf);
         setNewSmurf('');
     }
+
+// useEffect(() => {
+//     getSmurf();
+
+// },[getSmurf]); needs to go into list..
+
     return(
         <form>
             <h3>Add Smurf/Smurfete Below</h3>
@@ -58,5 +64,4 @@ const mapStateToProps = state =>{
         state
     );
 };
-// addSmurf
-export default connect(mapStateToProps, {})(SmurfForm);
+export default connect(mapStateToProps, {addSmurf})(SmurfForm);

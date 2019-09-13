@@ -1,8 +1,11 @@
 import React from "react";
-// import 
+
+
 import "./App.css";
 import SmurfForm from "./SmurfForm";
-import SmurfList from './SmurList';
+import SmurfList from './SmurfList';
+
+
 function App() {
 
 
