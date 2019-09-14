@@ -1,4 +1,4 @@
-import { FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, ADD_SMURF, GET_SMURF } from '../action/index.js';
+import { FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, POSTED_SMURFS_START, POSTED_SMURFS_SUCCESS, POSTED_SMURFS_FAILURE } from '../action/index.js';
 
 export const initialState = {
     smurfs: [{
@@ -10,27 +10,58 @@ export const initialState = {
     ]
 }
 
+// export const initialState = store.getstate();
 
-
-export const reducer = (state = initialState, action) => {
+export const reducer = (state, action) => {
     switch (action.type) {
+        case 'FETCHING_SMURFS_START':
+            return {
+                ...state,
+                smurfs: [...state.res, action.payload]
+            };
+        case 'FETCHING_SMURFS_SUCCESS':
 
-        case 'ADD_SMURF':
+        case 'FETCHING_SMURFS_SUCCESS':
+            return {
+                ...state,
+                smurfs: [...state.smurfs, {
+                    name: action.payload.name,
+                    age: action.payload.age,
+                    height: action.payload.height
+                }]
+            };
+        case 'FETCHING_SMURFS_FAILURE':
+            return {
+                ...state,
+                error: action.payload.error
+            };
+
+        case 'POSTED_SMURFS_START':
             return {
                 ...state,
                 smurfs: [...state.smurfs,
                     {
-                        name: action.payload,
-                        age: action.payload,
-                        height: action.payload,
+                        name: '',
+                        age: null,
+                        height: '',
 
                     },
                 ]
             };
-        case 'GET_SMURF':
+        case 'POSTED_SMURFS_SUCCESS':
             return {
                 ...state,
-                smurfs: [state]
+                smurfs: [...state.smurfs, {
+                    name: action.payload.name,
+                    age: action.payload.age,
+                    height: action.payload.height,
+
+                }]
+            };
+        case 'POSTED_SMURFS_FAILURE':
+            return {
+                ...state,
+                error: action.payload.error
             };
         default:
             return state;

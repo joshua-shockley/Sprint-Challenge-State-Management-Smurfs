@@ -8,11 +8,9 @@ import SmurfList from './SmurfList';
 
 function App() {
 
-
-
     return (
       <div className="App">
-        <SmurfForm/>
+        <SmurfForm />
         <SmurfList />
       </div>
     );

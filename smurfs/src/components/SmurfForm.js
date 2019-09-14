@@ -18,10 +18,6 @@ const handleChange = event=> {
         setNewSmurf('');
     }
 
-// useEffect(() => {
-//     getSmurf();
-
-// },[getSmurf]); needs to go into list..
 
     return(
         <form>
