@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { connect } from 'react-redux';
 import {addSmurf} from '../action/index.js';
 
@@ -56,8 +56,7 @@ const handleChange = event=> {
 }
 const mapStateToProps = state =>{
     console.log(state);
-    return(
-        state
-    );
+    return {};
 };
+// returning empty object for state since state isnt beign connected here.. using own state for form only need the functions for button to add object
 export default connect(mapStateToProps, {addSmurf})(SmurfForm);

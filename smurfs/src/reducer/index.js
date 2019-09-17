@@ -1,67 +1,70 @@
 import { FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, POSTED_SMURFS_START, POSTED_SMURFS_SUCCESS, POSTED_SMURFS_FAILURE } from '../action/index.js';
 
 export const initialState = {
-    smurfs: [{
-            name: '',
-            age: null,
-            height: '',
-        },
-
-    ]
+    smurfs: [],
+    error: '',
+    addingSmurfs: false,
+    fetchingSmurfs: false,
+    deletingSmurfs: false
 }
 
-// export const initialState = store.getstate();
 
-export const reducer = (state, action) => {
+export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'FETCHING_SMURFS_START':
             return {
                 ...state,
-                smurfs: [...state.res, action.payload]
+                error: '',
+                fetchingSmurfs: true
             };
-        case 'FETCHING_SMURFS_SUCCESS':
-
         case 'FETCHING_SMURFS_SUCCESS':
             return {
                 ...state,
-                smurfs: [...state.smurfs, {
-                    name: action.payload.name,
-                    age: action.payload.age,
-                    height: action.payload.height
-                }]
+                error: '',
+                fetchingSmurfs: false,
+                smurfs: action.payload
             };
         case 'FETCHING_SMURFS_FAILURE':
             return {
                 ...state,
-                error: action.payload.error
+                error: 'fetching failed'
             };
+        case 'ADD_SMURFS_START':
+            return {
+                ...state,
+                addingSmurf: true,
+                error: ''
+            }
+        case 'ADD_SMURFS_SUCCESS':
+            return {
+                ...state,
+                addingSmurf: false,
+                error: '',
+                smurfs: action.payload
+            }
+        case 'ADD_SMURFS_FAILURE':
+            return {
+                ...state,
+                error: 'adding failed'
+            }
 
         case 'POSTED_SMURFS_START':
             return {
                 ...state,
-                smurfs: [...state.smurfs,
-                    {
-                        name: '',
-                        age: null,
-                        height: '',
-
-                    },
-                ]
+                addingSmurf: true,
+                error: ''
             };
         case 'POSTED_SMURFS_SUCCESS':
             return {
                 ...state,
-                smurfs: [...state.smurfs, {
-                    name: action.payload.name,
-                    age: action.payload.age,
-                    height: action.payload.height,
-
-                }]
+                addingSmurf: false,
+                error: '',
+                smurfs: action.payload
             };
         case 'POSTED_SMURFS_FAILURE':
             return {
                 ...state,
-                error: action.payload.error
+                error: 'failed adding/posting smurf'
             };
         default:
             return state;

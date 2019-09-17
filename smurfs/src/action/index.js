@@ -8,11 +8,11 @@ export const POSTED_SMURFS_START = 'POSTED_SMURF_START';
 export const POSTED_SMURFS_SUCCESS = 'POSTED_SMURFS_SUCCESS';
 export const POSTED_SMURFS_FAILURE = 'POSTED_SMURFS_SUCCESS';
 
-export const getSmurf = (smurfs) => dispatch => {
+export const getSmurf = () => dispatch => {
     dispatch({ type: FETCHING_SMURFS_START });
     axios.get(`http://localhost:3333/smurfs`)
         .then(res => {
-            dispatch({ type: FETCHING_SMURFS_SUCCESS, payload: res })
+            dispatch({ type: FETCHING_SMURFS_SUCCESS, payload: res.data })
         })
         .catch(err => {
             dispatch({ type: FETCHING_SMURFS_FAILURE, payload: err.response });
@@ -20,12 +20,12 @@ export const getSmurf = (smurfs) => dispatch => {
 };
 
 
-export const addSmurf = ({name,age,height}) => dispatch => {
+export const addSmurf = (smurf) => dispatch => {
     dispatch({ type: POSTED_SMURFS_START });
-     axios.post(`http://localhost:3333/smurfs`, {name, age, height})
-        .then(resData => {
+    axios.post(`http://localhost:3333/smurfs`, smurf)
+        .then(res => {
             // console.log('posted dude');
-            dispatch({ type: POSTED_SMURFS_SUCCESS, payload: resData })
+            dispatch({ type: POSTED_SMURFS_SUCCESS, payload: res.data })
         })
         .catch(err => {
             dispatch({ type: POSTED_SMURFS_FAILURE, payload: err });
